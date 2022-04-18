@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{enumitem}
+\usepackage{indentfirst}
+\usepackage{minted}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage[romanian]{babel}
+\usepackage{amsmath}
+\usepackage[a4paper,portrait,margin=1in]{geometry}
+\usepackage{multicol}
+\pagenumbering{gobble}
+
+\renewcommand\thesection{\arabic{section}.}
+\renewcommand\thesubsection{\thesection\arabic{subsection}.}
+\renewcommand\labelitemii{$\circ$}
+\newcommand{\qu}[1]{„\emph{#1}”}
+\title{Șiruri de caractere}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+\section*{Bază}
+\begin{itemize}
+    \item \textbf{Declararea} unui șir de caractere de maxim $200$ de caractere: \verb|char sir[201];|
+    \begin{itemize}
+        \item Șirul declarat mai sus poate stoca 200 de caractere, plus delimitatorul de sfârșit de șir de caractere (\verb|'\0'|).
+    \end{itemize}
+    \item \textbf{Declararea unui pointer} la șir de caractere: \verb|char *p;|
+    \item \textbf{Citirea} unui șir de caractere de la tastatură (pentru fișiere înlocuiește \verb|cin| cu streamul de intrare):
+    \begin{itemize}
+        \item Citirea unui \textbf{cuvânt, până la primul spațiu}: \verb|cin>>sir;|
+        \item Citire de \textbf{linie întreagă, $\leq 200$ de caractere, ce poate avea spații, până la linie nouă}:
+        \begin{minted}{cpp}
+cin.get(sir, 201); // citirea propriu-zisă
+cin.get(); // trece de următorul caracter, de regulă '\n'
+        \end{minted}
+        \begin{itemize}
+            \item Alternativ, aceste 2 funcții pot fi combinate într-una: \verb|cin.getline(sir, 201);|
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{Afișarea} unui șir de caractere pe ecran (pentru fișiere înlocuiește \verb|cout| cu streamul de ieșire): \verb|cout<<sir;|
+\end{itemize}
+\section*{Funcții utile}
+\verb|#include <cstring>| sau \verb|#include <string.h>| pentru a accesa funcțiile de mai jos ce prelucrează șiruri de caractere. Copierea și concatenarea dintr-un șir în același șir merge doar pentru bacalaureat.
+\begin{itemize}
+    \item \verb|strlen(sir)|: lungimea șirului.
+    \item \verb|strcpy(dest, sursa)|: înlocuiește conținutul din \verb|dest| cu cel din \verb|sursa|.
+    \begin{itemize}
+        \item Pentru ștergerea dintr-un șir de caractere a \verb|x| caractere începând cu poziția \verb|p| se poate folosi \verb|strcpy(sir+p, sir+p+kx;|
+    \end{itemize}
+    \item \verb|strncpy(dest, sursa, n)|: copiază în \verb|dest| primele \verb|n| caractere din \verb|sursa| pe primele \verb|n| poziții.
+    \item \verb|strcmp(sir1, sir2)|: compară cele două șiruri de caractere și întoarce:
+    \begin{itemize}
+        \item \verb|0| dacă șirurile sunt identice.
+        \item \verb|<0| dacă \verb|sir1<sir2|.
+        \item \verb|>0| dacă \verb|sir1>sir2|.
+    \end{itemize}
+    \item \verb|strncmp(sir1, sir2, n)|: la fel ca \verb|strcmp|, dar limitat la primele \verb|n| caractere ale șirurilor.
+    \item \verb|stricmp(sir1, sir2)|: la fel ca \verb|strcmp|, dar nu face diferențierea între litere mici și mari.
+    \item \verb|strcat(dest, sursa)|: alipește la capătul lui \verb|dest| conținutul din \verb|sursa|.
+    \item \verb|strncat(dest, sursa, n)|: alipește la capătul lui \verb|dest| primele \verb|n| caractere din \verb|sursa|.
+    \item \verb|strchr(sir, c)|: pointer către prima apariție a caracterului \verb|c| în \verb|sir|.
+    \begin{itemize}
+        \item Pentru a verifica dacă caracterul \verb|c| este vocală se poate folosi \verb|strchr("aeiou", c)!=NULL|.
+    \end{itemize}
+    \item \verb|strstr(sir1, sir2)|: pointer către prima apariție a lui \verb|sir2| în \verb|sir1|.
+    \item \verb|strtok(sir, sep)|: pointer cu primul subșir din \verb|sir| delimitat de caractere din \verb|sep|.
+    \item \verb|strtok(NULL, sep)|: pointer cu următorul subșir din \verb|sir| delimitat de caractere din \verb|sep|.
+\end{itemize}
+\end{document}

@@ -1,0 +1,112 @@
+\documentclass{article}
+\usepackage{enumitem}
+\usepackage{indentfirst}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage[romanian]{babel}
+\usepackage{amsmath}
+\usepackage[a4paper,portrait,margin=1in]{geometry}
+\usepackage{multicol}
+\pagenumbering{gobble}
+
+\renewcommand\thesection{\arabic{section}.}
+\renewcommand\thesubsection{\thesection\arabic{subsection}.}
+\renewcommand\labelitemii{$\circ$}
+\newcommand{\qu}[1]{„\emph{#1}”}
+
+\title{Teoria grafurilor}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\section*{Grafuri}
+\textbf{Definiție}: Se numește graf o mulțime finită de elemente $V$, alături de o mulțime $U$ de relații definite între elemente din $V$.
+\begin{align*}
+    G &= (V, U) & U &\subseteq V\times V & V &- \text{finită}
+\end{align*}
+\begin{align*}
+    \text{Elementele mulțimii }V &= \textbf{Noduri} \\
+    \text{Elementele mulțimii }U &= \textbf{Muchii}
+\end{align*}
+\subsection*{Diverse}
+\begin{itemize}
+    \item \textbf{Buclă} = muchie ce are extremitatea inițială egală cu cea finală.
+    \item \textbf{Muchii paralele} = două muchii ce au aceleași extremități.
+    \item \textbf{Graf simplu} = graf fără muchii paralele, bucle.
+    \item \textbf{Graf planar} = un graf ce poate fi reprezentat astfel încât muchiile să nu se intersecteze.
+    \item \textbf{Graf vid} = un graf în care mulțimea de muchii este vidă.
+    \item \textbf{Graf complet} = un graf în care există muchii de la oricare nod la oricare alt nod. Numărul de muchii într-un graf complet este de \fbox{$m=C_n^2=\frac{n(n-1)}{2}$}.
+    \item \textbf{Subgraf} al unui graf dat = graf format doar din \underline{o parte din noduri}le grafului initial și din muchiile incidente cu acestea.
+    \item \textbf{Graf parțial} al unui graf dat = graf format din toate nodurile grafului inițial și doar \underline{o parte din muchii}.
+    \item \textbf{Nod izolat} = nod ce nu e legat de niciun alt nod al grafului.
+\end{itemize}
+\subsection*{Grafuri neorientate și orientate}
+\begin{itemize}
+    \item \textbf{Graf neorientat} = graf în care nu este definit un sens de parcurgere a muchiilor.
+    \item \textbf{Graf orientat} = graf în care este definit un sens de parcurgere a muchiilor.
+    \begin{itemize}
+        \item \textbf{Vârf} = nod într-un graf orientat.
+        \item \textbf{Arc} = muchie pe care s-a definit un sens de parcurgere.
+        \item Două arce cu aceleași extremități și sensuri de parcurgere diferite \underline{nu sunt paralele}.
+    \end{itemize}
+\end{itemize}
+\subsection*{Grade}
+\begin{itemize}
+    \item \textbf{Gradul nodului} = numărul de muchii incidente nodului respectiv.
+    \item Într-un graf orientat: \begin{itemize}
+        \item \textbf{Grad interior} = numărul de arce ce au nodul în cauză drept extremitate finală.
+        \item \textbf{Grad exterior} = numărul de arce ce au nodul în cauză drept extremitate inițială.
+    \end{itemize}
+\end{itemize}
+\subsection*{Lanțuri și drumuri}
+\begin{itemize}
+    \item \textbf{Lanț} = succesiune de muchii $U_1, U_2,...,U_k$, $U_i = (x_{i-1}, x_i)$, $i=\overline{1, k}$ cu proprietatea că extremitatea finală a unei muchii coincide cu cea inițială a muchiei următoare; se notează $L_{x_0 x_k}$ \textbf{lanț de la $x_0$ la $x_k$}.
+    \begin{itemize}
+        \item Într-un graf orientat, un lanț cu toate arcele la fel orientate se numește \textbf{drum}.
+    \end{itemize}
+    \item Lanț \textbf{simplu} = lanț pe care nu se repetă muchii.
+    \item Lanț \textbf{elementar} = lanț pe care nu se repetă noduri.
+    \item \textbf{Lemă}: Dacă $\exists\ L_{x y},\ L_{y z}$, atunci $\exists\ L_{x z}$.
+\end{itemize}
+\subsection*{Cicluri}
+\begin{itemize}
+    \item \textbf{Ciclu} = lanț în care extremitaea inițială coincide cu cea finală.
+    \item Orice ciclu neelementar poate fi descompus în cicluri elementare.
+    \item \textbf{Ciclu hamiltonian} = ciclu ce trece o singură dată prin \underline{fiecare nod} al grafului.
+    \begin{itemize}
+        \item \textbf{Graf hamiltonian} = graf ce admite ciclu hamiltonian.
+    \end{itemize}
+    \item \textbf{Ciclu eulerian} = ciclu ce trece o singură dată prin \underline{fiecare muchie} a grafului.
+    \begin{itemize}
+        \item \textbf{Graf eulerian} = graf ce conține un ciclu eulerian.
+        \item Condiția necesară și suficientă ca un graf să fie eulerian este ca fiecare nod al său să aibă grad par, nenul.
+    \end{itemize}
+\end{itemize}
+\subsection*{Conexitate}
+\begin{itemize}
+    \item \textbf{Graf conex} = graf în care există lanț între oricare două noduri ale sale.
+    \item \textbf{Componentă conexă} = subgraf conex al grafului dat.
+    \begin{itemize}
+        \item Orice graf neconex se poate descompune în componente conexe.
+        \item Un nod izolat este componentă conexă.
+    \end{itemize}
+\end{itemize}
+\section*{Arbori}
+\begin{itemize}
+    \item \textbf{Arbore} = graf conex fără cicluri.
+    \item \textbf{Rădăcină} = nod de pornire, stabilit pentru parcurgerea arborelui.
+    \item \textbf{Frunză} = nod de grad 1, exceptând eventual rădăcina.
+    \item \textbf{Fiu} = descendent direct al unui nod, numit \textbf{tată}.
+    \item \textbf{Frați} = doi fii ai aceluiași nod.
+    \item \textbf{Înălțimea} arborelui = numărul de niveluri ale acestuia.
+    \item \textbf{Teorema de caracterizare a unui arbore}: Despre un graf $G$ următoarele afirmații sunt echivalente:
+    \begin{itemize}
+        \item $G$ este arbore.
+        \item $G$ este conex și are $n-1$ muchii, unde $n$ e numărul de noduri.
+        \item $G$ este maximal aciclic.
+        \item $G$ este minimal conex.
+    \end{itemize}
+    \item \textbf{Pădure} = mulțime de arbori formați din câte o componentă conexă a unui graf dat.
+\end{itemize}
+\end{document}
